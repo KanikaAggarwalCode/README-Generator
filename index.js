@@ -2,12 +2,15 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 
+// prompting the user for answers
+
 const promptUser = () => {
-    inquirer.prompt([
+  return  inquirer.prompt([
     {
+        type: 'input',
         name: 'title',
         message: 'What is the title of the project?',
-        type: 'input',
+        
     },
     {
         name: 'description',
@@ -49,13 +52,17 @@ const promptUser = () => {
         name: 'email',
         message: 'Please enter enters the email address to reach for any additional questions',
         type: 'input',
-    },
+    }
 
 ])
 }
 
+const generateFile = (answers) => {
+    fs.writeFile('READMEEE.md', answers)
+        .then(console.log('README file has been generated successfully'));
+    ;
+};
 
 promptUser()
-  .then((answers) => writeFileAsync('READE.md'))
-  .then(() => console.log('READMe file has been generated successfully'))
-  .catch((err) => console.error(err));
+    .then(generateFile) // Corrected: Pass the function reference, not the result of calling it
+    .catch((err) => console.error(err));

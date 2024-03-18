@@ -10,6 +10,6 @@
   "author": "kanika",
   "license": "MIT",
   "dependencies": {
-    "inquirer": "^9.2.16"
+    "inquirer": "^6.3.1"
   }
 }
