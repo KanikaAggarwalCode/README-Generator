@@ -1,6 +1,6 @@
-const inquirer = require('inquirer');
 const fs = require('fs');
-const util = require('util');
+const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown')
 
 // prompting the user for answers
 
@@ -43,13 +43,8 @@ const promptUser = () => {
         type: 'list',
         choices: ['MIT', 'GNU' ]
     },
-    {
-        name: 'github',
-        message: 'Please enter your github username',
-        type: 'input',
-    },
-    {
-        name: 'email',
+        {
+        name: 'questions',
         message: 'Please enter enters the email address to reach for any additional questions',
         type: 'input',
     }
@@ -58,11 +53,14 @@ const promptUser = () => {
 }
 
 const generateFile = (answers) => {
-    fs.writeFile('READMEEE.md', answers)
-        .then(console.log('README file has been generated successfully'));
-    ;
+
+    fs.writeFile('READMEEE.md', generateMarkdown(answers),(err) =>{
+        if (err) {console.log(err);}
+        else {console.log('The README file has been generated successfully')}
+    })
 };
 
+// Initialising the function
 promptUser()
-    .then(generateFile) // Corrected: Pass the function reference, not the result of calling it
+    .then(generateFile) 
     .catch((err) => console.error(err));
